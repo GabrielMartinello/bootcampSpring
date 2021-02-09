@@ -14,8 +14,7 @@
                     <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control" id="nome" type="text"
                            placeholder="Nome">
                     <span class="small">Insira o nome do livro</span>
-                    <div th:errors="*{nome}">
-                        <p></p>
+                    <div th:errors="*{nome}" class="invalid-feedback">
                     </div>
                 </div>
 
@@ -24,12 +23,14 @@
                     <input th:field="*{autor}" th:errorclass="is-invalid" class="form-control" id="autor" type="text"
                            placeholder="Autor">
                     <span class="class small">Insira o nome do autor</span>
+                    <div th:errors="*{autor}" class="invalid-feedback"></div>
                 </div>
 
                 <div class="form-group">
                     <label for="imagem">Url da Imagem</label>
                     <input name="imagem" class="form-control" id="imagem" type="text" placeholder="Imagem">
                     <span class="class small">Insira o endereço de imagem</span>
+                    <div th:errors="*{imagem}" class="invalid-feedback"></div>
                 </div>
 
                 <button class="btn btn-primary mt-2" type="submit">Salvar</button>

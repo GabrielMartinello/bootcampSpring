@@ -1,17 +1,12 @@
 <!DOCTYPE html>
 <html th:replace="~{base :: base(~{::title}, ~{:: #conteudo})}" lang="pt-br">
 <head>
+    <meta charset="UTF-8">
     <title>Biblioteca de Livros</title>
 </head>
 <body>
-
-<div id="conteudo" class ="container">
-
-        <div th:each="produto : ${lista}">
-            <h1 th:text="${produto.nome}">Titulo</h1>
-            <h2 th:text="${produto.autor}">Autor</h2>
-            <img th:src="${produto.imagem}" alt="Imagem">
+<div id="conteudo">
+    <h1>Hello World</h1>
 </div>
-
 </body>
 </html>

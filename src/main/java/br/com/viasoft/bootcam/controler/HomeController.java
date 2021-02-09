@@ -18,11 +18,7 @@ public class HomeController {
     private ProdutoRepository produtoRepository;
 
     @GetMapping("/")
-    public String getHome(Model model) {
-
-        List<Produto> lista = produtoRepository.findAll();
-        model.addAttribute("lista", lista);
-
+    public String getHome() {
         return "home";
     }
 
