@@ -5,6 +5,8 @@ import br.com.viasoft.bootcam.model.Produto;
 import br.com.viasoft.bootcam.repository.ProdutoRepository;
 import br.com.viasoft.bootcam.service.ProdutoService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.core.GrantedAuthority;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
@@ -13,7 +15,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import javax.validation.Valid;
+import java.security.Principal;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Controller
 public class ProdutoController {
@@ -45,6 +49,15 @@ public class ProdutoController {
         return "produto/produtosdetail";
     }
 
+    @GetMapping("/produto/edit/{id}")
+    public String editaProduto(@PathVariable ("id") Long id,ProdutoFormularioDTO produtoFormularioDTO,Model model) {
+        var p1 = produtoService.findById(id).orElse(null);
+        produtoFormularioDTO = new ProdutoFormularioDTO(p1);
+        model.addAttribute("produto",p1);
+        model.addAttribute("dto",produtoFormularioDTO);
+        return "produto/formeeditproduto";
+    }
+
     @GetMapping("/produto/novo")
     public String getProduto(ProdutoFormularioDTO produtoFormularioDTO) {
         return "produto/formularioproduto";
@@ -60,4 +73,33 @@ public class ProdutoController {
         produtoService.save(produto);
         return "produto/formularioproduto";
     }
+
+    @PostMapping("/produto/salvar/{id}")
+    public String saveProdutoExistente(@PathVariable("id")Long id,@Valid ProdutoFormularioDTO produtoDTO, BindingResult bindingResult) {
+
+        if(bindingResult.hasErrors()) {
+            return "formularioproduto";
+        }
+
+        Produto produto = produtoDTO.toProduto();
+        produto.setId(id);
+        produtoService.save(produto);
+        return "redirect:/produto/" + produto.getId();
+    }
+
+    @GetMapping("produto/delete/{id}")
+    public String removeProduto(@PathVariable("id") Long id, Principal principal) {
+        var roles = SecurityContextHolder.getContext().getAuthentication().getAuthorities();
+        List<String> cargos = roles.stream().map(GrantedAuthority::getAuthority).collect(Collectors.toList());
+        if(cargos.get(0).equals("ROLE_ADM")) {
+            produtoService.delete(id);
+            return "redirect:/produto";
+        }
+        return "redirect:/produto/edit/" + id;
+    }
+
+
+
+
+
 }
