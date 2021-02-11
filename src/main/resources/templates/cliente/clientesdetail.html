@@ -1,0 +1,21 @@
+<!DOCTYPE html>
+<html th:replace="~{base :: base(~{::title}, ~{:: #conteudo})}" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<div id="conteudo">
+    <div class="card-body">
+        <h1>ID: <span th:text="${cliente.id}"></span></h1>
+        <h2>Nome: <span th:text="${cliente.nome}"></span></h2>
+        <h2>Cpf: <span th:text="${cliente.cpf}"></span></h2>
+        <h2>Email: <span th:text="${cliente.email}"></span></h2>
+        <br>
+        <a th:href="@{'/cliente/edit/' +  ${cliente.id}}" class="btn btn-outline-primary mt-3">Edit</a>
+    </div>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html th:replace="~{base :: base(~{::title}, ~{:: #conteudo})}" lang="pt-br" xmlns="http://www.w3.org/1999/html">
+<head>
+    <title>Clientes</title>
+</head>
+<body>
+<div id="conteudo" class="container">
+    <div class="card">
+        <div class="card-body" style="text-align: center">
+            <div class="card-body">
+                <h5 class="card-title" style="font-size: 40px">Lista de Clientes</h5>
+            </div>
+            <div class="card bg-dark text-white"></div>
+            <br>
+            <div th:each="cliente : ${lista}">
+                <h1 class="title">Nome:
+                    <a th:href="@{'/cliente/' + ${cliente.id}}">
+                        <span th:text="${cliente.nome}"></span>
+                    </a>
+                </h1>
+                <h2 class="sub-title" th:text="${cliente.cpf}">CPF: </h2>
+                <h2 class="sub-title" th:text="${cliente.email}">E-mail: </h2>
+            </div>
+            <div class="card bg-dark text-white"></div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

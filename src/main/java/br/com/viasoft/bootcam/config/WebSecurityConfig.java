@@ -16,7 +16,8 @@ public class WebSecurityConfig extends WebSecurityConfigurerAdapter {
     @Override
     protected void configure(HttpSecurity http) throws Exception {
         http.authorizeRequests()
-                .antMatchers("/produto/delete/**").authenticated()
+                .antMatchers("/**/delete/**").authenticated()
+                .antMatchers("/**/edit/**").authenticated()
                 .anyRequest().permitAll()
                 .and().formLogin().loginPage("/login").permitAll()
                 .and().csrf().ignoringAntMatchers("/h2-console/**")

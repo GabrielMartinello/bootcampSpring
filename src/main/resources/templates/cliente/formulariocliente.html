@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html th:replace="~{base :: base(~{::title}, ~{:: #conteudo})}" lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <title>Novo Cliente</title>
+</head>
+<body>
+    <div id="conteudo" class="container">
+        <form th:object="${clienteFormularioDTO}" method="post" th:action="@{/cliente/salvar}">
+            <div class="card mt-3">
+                <div class="card body">
+                    <h5 class="card-title" style="text-align: center">Cadastro de Clientes</h5>
+                    <div class="form-group">
+                        <label for="nome">Nome: </label>
+                        <input th:field="*{nome}" th:errorclass="is-invalid" class="form-control" id="nome" type="text"
+                        placeholder="Nome">
+                    </div>
+                    <div class="form-group">
+                        <label for="cpf">CPF: </label>
+                        <input th:field="*{cpf}" class="form-control" id="cpf" type="text" placeholder="CPF">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">E-mail: </label>
+                        <input th:field="*{email}" class="form-control" id="email"  type="email" placeholder="E-mail">
+                    </div>
+                    <button class="btn btn-outline-primary mt-2" type="submit">Salvar</button>
+                    <button class="btn btn-outline-warning mt-2" type="reset">Limpar</button>
+                </div>
+            </div>
+
+        </form>
+
+    </div>
+
+</body>
+</html>

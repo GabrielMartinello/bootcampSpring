@@ -50,7 +50,9 @@ public class ProdutoController {
     }
 
     @GetMapping("/produto/edit/{id}")
-    public String editaProduto(@PathVariable ("id") Long id,ProdutoFormularioDTO produtoFormularioDTO,Model model) {
+    public String editaProduto(@PathVariable ("id") Long id,
+                               ProdutoFormularioDTO produtoFormularioDTO,
+                               Model model) {
         var p1 = produtoService.findById(id).orElse(null);
         produtoFormularioDTO = new ProdutoFormularioDTO(p1);
         model.addAttribute("produto",p1);
@@ -58,7 +60,7 @@ public class ProdutoController {
         return "produto/formeeditproduto";
     }
 
-    @GetMapping("/produto/novo")
+       @GetMapping("/produto/novo")
     public String getProduto(ProdutoFormularioDTO produtoFormularioDTO) {
         return "produto/formularioproduto";
     }
@@ -75,7 +77,9 @@ public class ProdutoController {
     }
 
     @PostMapping("/produto/salvar/{id}")
-    public String saveProdutoExistente(@PathVariable("id")Long id,@Valid ProdutoFormularioDTO produtoDTO, BindingResult bindingResult) {
+    public String saveProdutoExistente(@PathVariable("id")Long id,
+                                       @Valid ProdutoFormularioDTO produtoDTO,
+                                       BindingResult bindingResult) {
 
         if(bindingResult.hasErrors()) {
             return "formularioproduto";
